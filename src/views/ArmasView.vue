@@ -1,27 +1,40 @@
 <template>
-  <div class="body row d-flex flex-row-reverse justify-content-center">
-    <ConstrucaoArmaComponent
-      :set-arma-id="setArmaId"
-      :set-material-id="setMaterialId"
-      :set-runa-potencia="setRunaPotencia"
-      :runa-potencia="runaPotencia"
-      :set-runa-impactante="setRunaImpactante"
-      :runa-impactante="runaImpactante"
-      :set-tamanho="setTamanho"
-      :tamanho="tamanho"
-      :runasPop="runasPop"
-      :runas-id="getRunas"
-      :set-runas="setRunas"
-    />
-    <ArmaFinalComponent
-      :arma-id="armaId"
-      :runa-potencia="runaPotencia"
-      :runa-impactante="runaImpactante"
-      :runas-id="getRunas"
-      :tamanho="tamanho"
-      :material-id="materialId"
-    />
-  </div>
+  <Suspense>
+    <template #fallback>
+      <div
+        class="body row d-flex justify-content-center align-items-center"
+        style="min-height: 100vh; min-width: 100vw"
+      >
+        <fingerprint-spinner :animation-duration="1500" :size="64" color="#eeeeee" />
+      </div>
+    </template>
+    <template #default>
+      <div class="body row d-flex flex-row-reverse justify-content-center">
+        <ConstrucaoArmaComponent
+          :set-arma-id="setArmaId"
+          :set-material-id="setMaterialId"
+          :set-runa-potencia="setRunaPotencia"
+          :runa-potencia="runaPotencia"
+          :set-runa-impactante="setRunaImpactante"
+          :runa-impactante="runaImpactante"
+          :set-tamanho="setTamanho"
+          :tamanho="tamanho"
+          :runasPop="runasPop"
+          :runas-id="getRunas"
+          :set-runas="setRunas"
+        />
+
+        <ArmaFinalComponent
+          :arma-id="armaId"
+          :runa-potencia="runaPotencia"
+          :runa-impactante="runaImpactante"
+          :runas-id="getRunas"
+          :tamanho="tamanho"
+          :material-id="materialId"
+        />
+      </div>
+    </template>
+  </Suspense>
 </template>
 
 <script setup lang="ts">
@@ -31,6 +44,7 @@ import { RunaImpactante } from '@/entities/Utils/RunaImpactante'
 import { RunaPotencia } from '@/entities/Utils/RunaPotencia'
 import { Tamanho } from '@/entities/Utils/Tamanho'
 import { ref, type Ref } from 'vue'
+import { FingerprintSpinner } from 'epic-spinners'
 
 let armaId: Ref<string> = ref('-1')
 let materialId: Ref<number> = ref(-1)

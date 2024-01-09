@@ -24,7 +24,7 @@
       <li class="elementoarma">
         <span class="divisao">• Armas Simples •</span>
       </li>
-      <li class="elementoarma" v-for="arma in getArmasSimples()" :key="arma.id">
+      <li class="elementoarma" v-for="arma in getArmasSimples" :key="arma.id">
         <input
           :id="arma.nome"
           type="radio"
@@ -42,7 +42,7 @@
       <li class="elementoarma">
         <span class="divisao">• Armas Marciais •</span>
       </li>
-      <li class="elementoarma" v-for="arma in getArmasMarciais()" :key="arma.id">
+      <li class="elementoarma" v-for="arma in getArmasMarciais" :key="arma.id">
         <input
           :id="arma.nome"
           type="radio"
@@ -60,7 +60,7 @@
       <li class="elementoarma">
         <span class="divisao">• Armas Avançadas •</span>
       </li>
-      <li class="elementoarma" v-for="arma in getArmasAvancadas()" :key="arma.id">
+      <li class="elementoarma" v-for="arma in getArmasAvancadas" :key="arma.id">
         <input
           :id="arma.nome"
           type="radio"
@@ -78,7 +78,7 @@
       <li class="elementoarma">
         <span class="divisao">• Armas Especificas •</span>
       </li>
-      <li class="elementoarma" v-for="arma in ([] as Arma[])" :key="arma.id">
+      <li class="elementoarma" v-for="arma in [] as Arma[]" :key="arma.id">
         <input
           :id="arma.nome"
           type="radio"
@@ -98,24 +98,31 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   setArmaId: (armaid: string) => void
 }>()
-
-import { armasBase } from '@/entities/Arma'
-import type Arma from '@/entities/Arma/model/Arma';
-import { Categoria } from '@/entities/Arma/model/Categoria'
 const armas = await armasBase
-const getArmasSimples = () => {
-  return armas.filter((el) => el.categoria == Categoria.Simples).sort((a, b) => a.nome.localeCompare(b.nome))
-}
-const getArmasMarciais = () => {
-  return armas.filter((el) => el.categoria == Categoria.Marcial).sort((a, b) => a.nome.localeCompare(b.nome))
-}
+import { armasBase } from '@/entities/Arma'
+import type Arma from '@/entities/Arma/model/Arma'
+import { Categoria } from '@/entities/Arma/model/Categoria'
+import { computed } from 'vue'
 
-const getArmasAvancadas = () => {
-  return armas.filter((el) => el.categoria == Categoria.Avancada).sort((a, b) => a.nome.localeCompare(b.nome))
-}
+const getArmasSimples = computed(() => {
+  return armas
+    .filter((el) => el.categoria == Categoria.Simples)
+    .sort((a, b) => a.nome.localeCompare(b.nome))
+})
+const getArmasMarciais = computed(() => {
+  return armas
+    .filter((el) => el.categoria == Categoria.Marcial)
+    .sort((a, b) => a.nome.localeCompare(b.nome))
+})
+
+const getArmasAvancadas = computed(() => {
+  return armas
+    .filter((el) => el.categoria == Categoria.Avancada)
+    .sort((a, b) => a.nome.localeCompare(b.nome))
+})
 
 const getMoeda = (moedas: number): string => {
   const pc = moedas % 10

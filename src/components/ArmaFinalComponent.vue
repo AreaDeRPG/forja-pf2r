@@ -6,9 +6,9 @@
       <li class="descricaoarma">{{ getDescricaoArma() }}</li>
       <li class="descricaoarma2" v-for="(traco, index) in getArma()?.tracos" :key="index">
         <span
-          ><b class="font-weight-bold text-nowrap" v-html="traco"></b
-          >: <span v-html="getDescricaoTraco(traco)"></span></span
-        >
+          ><b class="font-weight-bold text-nowrap" v-html="traco"></b>:
+          <span v-html="getDescricaoTraco(traco)"></span
+        ></span>
       </li>
       <li class="descricaoarma2" v-for="(runa, index) in getRunas()" :key="index">
         <span
@@ -142,7 +142,6 @@
 </template>
 
 <script setup lang="ts">
-import { armasBase } from '@/entities/Arma'
 import type Arma from '@/entities/Arma/model/Arma'
 import { TipoDano } from '@/entities/Arma/model/TipoDano'
 import { Traco, getDescricaoTraco } from '@/entities/Arma/model/Traco'
@@ -161,8 +160,8 @@ import { ref } from 'vue'
 import { Proficiencia } from '@/entities/Utils/Proficiencia'
 import { Raridade } from '@/entities/Utils/Raridade'
 import { Tipo } from '@/entities/Arma/model/Tipo'
+import { armasBase } from '@/entities/Arma'
 
-const armas = await armasBase;
 const props = defineProps<{
   armaId: string
   runaPotencia: RunaPotencia
@@ -171,6 +170,8 @@ const props = defineProps<{
   tamanho: Tamanho
   materialId: number
 }>()
+
+const armas = await armasBase
 const proventosTreinado = [
   20, 30, 50, 70, 90, 150, 200, 250, 300, 400, 500, 600, 700, 800, 1000, 1300, 1500, 2000, 3000,
   4000, 5000
@@ -492,7 +493,6 @@ const calcularCD = (): number => {
   else if (raridades.includes(Raridade.INCOMUM)) return cd[level] + 2
   else return cd[level]
 }
-
 </script>
 
 <style scoped>
