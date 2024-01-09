@@ -101,12 +101,12 @@
 const props = defineProps<{
   setArmaId: (armaid: string) => void
 }>()
-const armas = await armasBase
 import { armasBase } from '@/entities/Arma'
 import type Arma from '@/entities/Arma/model/Arma'
 import { Categoria } from '@/entities/Arma/model/Categoria'
 import { computed } from 'vue'
 
+const armas = await armasBase
 const getArmasSimples = computed(() => {
   return armas
     .filter((el) => el.categoria == Categoria.Simples)
