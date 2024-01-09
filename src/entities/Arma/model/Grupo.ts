@@ -6,8 +6,8 @@ export enum Grupo {
   Haste = 'Haste',
   Mangual = 'Mangual',
   Machado = 'Machado',
-  Pugilato = "Pugilato",
-  Dardo = "Dardo",
-  Besta = "Besta",
-  Arco = "Arco",
+  Pugilato = 'Pugilato',
+  Dardo = 'Dardo',
+  Besta = 'Besta',
+  Arco = 'Arco'
 }

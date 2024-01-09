@@ -28,7 +28,7 @@ import SelectRunas from './SelectRunas.vue'
 import type { RunaImpactante } from '@/entities/Utils/RunaImpactante'
 import type { Tamanho } from '@/entities/Utils/Tamanho'
 defineProps<{
-  setArmaId: (armaId: number) => void
+  setArmaId: (armaId: string) => void
   setMaterialId: (materialId: number) => void
   setRunaPotencia: (runaPotencia: RunaPotencia) => void
   runaPotencia: RunaPotencia

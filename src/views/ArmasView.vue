@@ -32,7 +32,7 @@ import { RunaPotencia } from '@/entities/Utils/RunaPotencia'
 import { Tamanho } from '@/entities/Utils/Tamanho'
 import { ref, type Ref } from 'vue'
 
-let armaId: Ref<number> = ref(-1)
+let armaId: Ref<string> = ref('-1')
 let materialId: Ref<number> = ref(-1)
 let runaPotencia: Ref<RunaPotencia> = ref(RunaPotencia.PADRAO)
 let runaImpactante: Ref<RunaImpactante> = ref(RunaImpactante.PADRAO)
@@ -43,7 +43,7 @@ const getRunas = (): number[] => {
   return runasId.value
 }
 
-const setArmaId = (armaId_: number): void => {
+const setArmaId = (armaId_: string): void => {
   armaId.value = armaId_
 }
 const setMaterialId = (materialId_: number): void => {

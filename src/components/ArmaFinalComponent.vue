@@ -6,8 +6,8 @@
       <li class="descricaoarma">{{ getDescricaoArma() }}</li>
       <li class="descricaoarma2" v-for="(traco, index) in getArma()?.tracos" :key="index">
         <span
-          ><b class="font-weight-bold text-nowrap">{{ traco }}</b
-          >: {{ getDescricaoTraco(traco) }}</span
+          ><b class="font-weight-bold text-nowrap" v-html="traco"></b
+          >: <span v-html="getDescricaoTraco(traco)"></span></span
         >
       </li>
       <li class="descricaoarma2" v-for="(runa, index) in getRunas()" :key="index">
@@ -28,7 +28,7 @@
           <bowArrow v-if="getDanoTipo() == TipoDano.Perfurante" />
           <hammer v-if="getDanoTipo() == TipoDano.Contundente" />
           <span v-for="runa in getRunas()" :key="runa.id">
-            <span v-if="runa.bonusDano && armaId != -1">
+            <span v-if="runa.bonusDano && armaId != '-1'">
               +{{ getDanoRuna(runa) }}
               <fire v-if="getTipoDanoRuna(runa) == TipoDano.Fogo"></fire>
             </span>
@@ -45,7 +45,7 @@
             <bowArrow v-if="getDanoTipo() == TipoDano.Perfurante" />
             <hammer v-if="getDanoTipo() == TipoDano.Contundente" />
             <span v-for="runa in getRunas()" :key="runa.id">
-              <span v-if="runa.bonusDano && armaId != -1">
+              <span v-if="runa.bonusDano && armaId != '-1'">
                 +{{ getDanoRuna(runa) }}
                 <fire v-if="getTipoDanoRuna(runa) == TipoDano.Fogo"></fire>
               </span>
@@ -145,7 +145,7 @@
 import { armasBase } from '@/entities/Arma'
 import type Arma from '@/entities/Arma/model/Arma'
 import { TipoDano } from '@/entities/Arma/model/TipoDano'
-import { Traco, TracoDescricao } from '@/entities/Arma/model/Traco'
+import { Traco, TracoDescricao, getDescricaoTraco } from '@/entities/Arma/model/Traco'
 import { RunaImpactante } from '@/entities/Utils/RunaImpactante'
 import { RunaPotencia } from '@/entities/Utils/RunaPotencia'
 import Axe from '@/icons/Axe.vue'
@@ -162,7 +162,7 @@ import { Proficiencia } from '@/entities/Utils/Proficiencia'
 import { Raridade } from '@/entities/Utils/Raridade'
 import { Tipo } from '@/entities/Arma/model/Tipo'
 const props = defineProps<{
-  armaId: number
+  armaId: string
   runaPotencia: RunaPotencia
   runaImpactante: RunaImpactante
   runasId: () => number[]
@@ -187,7 +187,6 @@ const proventosLendario = [
 ]
 
 const checkData = (): void => {
-  console.log('here')
   if (dias.value < 2 && !formula.value) {
     dias.value = 2
   } else if (dias.value > 2 + diasMax() && !formula.value) {
@@ -291,7 +290,7 @@ const getMortalFatal = (): string => {
 const getAlcance = (): string => {
   const arma = getArma()
   if (!arma) return 'Nenhum'
-  if(arma.tipo === Tipo.CAC) return arma.tracos.find((el) => el === Traco.Alcance) ? '3m' : '1.5m'
+  if (arma.tipo === Tipo.CAC) return arma.tracos.find((el) => el === Traco.Alcance) ? '3m' : '1.5m'
   return arma.distancia
 }
 
@@ -492,49 +491,6 @@ const calcularCD = (): number => {
   else return cd[level]
 }
 
-const getDescricaoTraco = (traco: Traco): string => {
-  switch (traco) {
-    case Traco.Acuidade:
-      return TracoDescricao.Acuidade
-    case Traco.Agil:
-      return TracoDescricao.Agil
-    case Traco.Alcance:
-      return TracoDescricao.Alcance
-    case Traco.Amplitude:
-      return TracoDescricao.Amplitude
-    case Traco.Anao:
-      return TracoDescricao.Anao
-    case Traco.Arremesso3m:
-      return TracoDescricao.Arremesso3m
-    case Traco.Arremesso6m:
-      return TracoDescricao.Arremesso6m
-    case Traco.Derrubar:
-      return TracoDescricao.Derrubar
-    case Traco.Desarmar:
-      return TracoDescricao.Desarmar
-    case Traco.Divino:
-      return TracoDescricao.Divino
-    case Traco.DuasMaosD12:
-      return TracoDescricao.DuasMaosD12
-    case Traco.DuasMaosD8:
-      return TracoDescricao.DuasMaosD8
-    case Traco.FatalD10:
-      return Traco.FatalD10
-    case Traco.Gemea:
-      return TracoDescricao.Gemea
-    case Traco.Gnomo:
-      return TracoDescricao.Gnomo
-    case Traco.MortalD10:
-      return TracoDescricao.MortalD10
-    case Traco.NaoLetal:
-      return TracoDescricao.NaoLetal
-    case Traco.VersatilCt:
-      return TracoDescricao.VersatilCt
-    case Traco.VersatilPf:
-      return TracoDescricao.VersatilPf
-  }
-  return ''
-}
 </script>
 
 <style scoped>

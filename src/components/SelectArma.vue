@@ -78,7 +78,7 @@
       <li class="elementoarma">
         <span class="divisao">• Armas Especificas •</span>
       </li>
-      <li class="elementoarma" v-for="arma in armasEspecificas" :key="arma.id">
+      <li class="elementoarma" v-for="arma in ([] as Arma[])" :key="arma.id">
         <input
           :id="arma.nome"
           type="radio"
@@ -99,14 +99,15 @@
 
 <script setup lang="ts">
 defineProps<{
-  setArmaId: (armaid: number) => void
+  setArmaId: (armaid: string) => void
 }>()
 
-import { armasBase, armasEspecificas } from '@/entities/Arma'
+import { armasBase } from '@/entities/Arma'
+import type Arma from '@/entities/Arma/model/Arma';
 import { Categoria } from '@/entities/Arma/model/Categoria'
 
 const getArmasSimples = () => {
-  return armasBase.filter((el) => el.categoria == Categoria.Simples)
+  return armasBase.filter((el) => el.categoria == Categoria.Simples).sort((a, b) => a.nome.localeCompare(b.nome))
 }
 const getArmasMarciais = () => {
   return armasBase.filter((el) => el.categoria == Categoria.Marcial)

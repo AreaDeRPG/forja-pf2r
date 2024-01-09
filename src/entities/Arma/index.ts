@@ -7,476 +7,524 @@ import { Raridade } from '../Utils/Raridade'
 import { Tipo } from './model/Tipo'
 import { TipoDano } from './model/TipoDano'
 import { Traco } from './model/Traco'
+import axios from 'axios'
 
-export const armasBase = [
-  //ARMAS SIMPLES
-  {
-    id: 1,
-    nome: 'Adaga',
-    level: 0,
-    raridade: Raridade.COMUM,
-    source: 'Player Core, Pg. 277',
-    preco: 20,
-    dano: Dano['1d4'],
-    tipoDano: TipoDano.Perfurante,
-    volume: 'L',
-    maos: 10,
-    tipo: Tipo.CAC,
-    distancia: Distancia['3m'],
-    categoria: Categoria.Simples,
-    grupo: Grupo.Faca,
-    tracos: [Traco.Arremesso3m, Traco.VersatilCt, Traco.Acuidade, Traco.Agil],
-    armaEspecifica: false,
-    descricao:
-      'Esta pequena arma com lâmina é empunhada em uma mão e usada para apunhalar uma criatura em combate aproximado. Ela também pode ser arremessada'
-  },
-  {
-    id: 2,
-    nome: 'Lança',
-    level: 0,
-    raridade: Raridade.COMUM,
-    source: 'Player Core, Pg. 277',
-    preco: 10,
-    dano: Dano['1d6'],
-    tipoDano: TipoDano.Perfurante,
-    volume: '1',
-    maos: 1,
-    tipo: Tipo.CAC,
-    distancia: Distancia['6m'],
-    categoria: Categoria.Simples,
-    grupo: Grupo.Lanca,
-    tracos: [Traco.Arremesso6m, Traco.Monge],
-    armaEspecifica: false,
-    descricao:
-      'Composta por um longo cabo de metal e ponta com cravo do mesmo material, uma lança pode ser usada com uma mão como arma branca ou ser arremessada.'
-  },
-  {
-    id: 3,
-    nome: 'Cajado',
-    level: 0,
-    raridade: Raridade.COMUM,
-    source: 'Player Core, Pg. 277',
-    preco: 0,
-    dano: Dano['1d4'],
-    tipoDano: TipoDano.Contundente,
-    volume: '1',
-    maos: 1,
-    tipo: Tipo.CAC,
-    distancia: Distancia.CAC,
-    categoria: Categoria.Simples,
-    grupo: Grupo.Clava,
-    tracos: [Traco.DuasMaosD8],
-    armaEspecifica: false,
-    descricao: 'Esta longa peça de madeira pode auxiliar no caminhar e desferir golpes poderosos'
-  },
-  {
-    id: 4,
-    nome: 'Clava',
-    level: 0,
-    raridade: Raridade.COMUM,
-    source: 'Player Core, Pg. 277',
-    preco: 0,
-    dano: Dano['1d6'],
-    tipoDano: TipoDano.Contundente,
-    volume: 'L',
-    maos: 1,
-    tipo: Tipo.CAC,
-    distancia: Distancia.CAC,
-    categoria: Categoria.Simples,
-    grupo: Grupo.Faca,
-    tracos: [Traco.Arremesso3m],
-    armaEspecifica: false,
-    descricao: ""
-  },
-  {
-    id: 5,
-    nome: 'Foice',
-    level: 0,
-    raridade: Raridade.COMUM,
-    source: 'Player Core, Pg. 277',
-    preco: 20,
-    dano: Dano['1d4'],
-    tipoDano: TipoDano.Cortante,
-    volume: 'L',
-    maos: 1,
-    tipo: Tipo.CAC,
-    distancia: Distancia.CAC,
-    categoria: Categoria.Simples,
-    grupo: Grupo.Faca,
-    tracos: [Traco.Acuidade, Traco.Agil, Traco.Derrubar],
-    armaEspecifica: false,
-    descricao: ""
-  },
-  {
-    id: 6,
-    nome: 'Lança Longa',
-    level: 0,
-    raridade: Raridade.COMUM,
-    source: 'Player Core, Pg. 277',
-    preco: 50,
-    dano: Dano['1d8'],
-    tipoDano: TipoDano.Perfurante,
-    volume: '2',
-    maos: 2,
-    tipo: Tipo.CAC,
-    distancia: Distancia.CAC,
-    categoria: Categoria.Simples,
-    grupo: Grupo.Lanca,
-    tracos: [Traco.Alcance],
-    armaEspecifica: false,
-    descricao: ""
-  },
-  {
-    id: 7,
-    nome: 'Maça',
-    level: 0,
-    raridade: Raridade.COMUM,
-    source: 'Player Core, Pg. 277',
-    preco: 100,
-    dano: Dano['1d6'],
-    tipoDano: TipoDano.Contundente,
-    volume: '1',
-    maos: 1,
-    tipo: Tipo.CAC,
-    distancia: Distancia.CAC,
-    categoria: Categoria.Simples,
-    grupo: Grupo.Clava,
-    tracos: [Traco.Empurrar],
-    armaEspecifica: false,
-    descricao: ""
-  },
-  {
-    id: 8,
-    nome: 'Maça Leve',
-    level: 0,
-    raridade: Raridade.COMUM,
-    source: 'Player Core, Pg. 277',
-    preco: 100,
-    dano: Dano['1d4'],
-    tipoDano: TipoDano.Contundente,
-    volume: 'L',
-    maos: 1,
-    tipo: Tipo.CAC,
-    distancia: Distancia.CAC,
-    categoria: Categoria.Simples,
-    grupo: Grupo.Clava,
-    tracos: [Traco.Acuidade, Traco.Agil, Traco.Empurrar],
-    armaEspecifica: false,
-    descricao: ""
-  },
-  {
-    id: 9,
-    nome: 'Maça-Estrela',
-    level: 0,
-    raridade: Raridade.COMUM,
-    source: 'Player Core, Pg. 277',
-    preco: 100,
-    dano: Dano['1d6'],
-    tipoDano: TipoDano.Contundente,
-    volume: '1',
-    maos: 1,
-    tipo: Tipo.CAC,
-    distancia: Distancia.CAC,
-    categoria: Categoria.Simples,
-    grupo: Grupo.Clava,
-    tracos: [Traco.VersatilPf],
-    armaEspecifica: false,
-    descricao: ""
-  },
-  {
-    id: 10,
-    nome: 'Manopla',
-    level: 0,
-    raridade: Raridade.COMUM,
-    source: 'Player Core, Pg. 277',
-    preco: 20,
-    dano: Dano['1d4'],
-    tipoDano: TipoDano.Contundente,
-    volume: 'L',
-    maos: 1,
-    tipo: Tipo.CAC,
-    distancia: Distancia.CAC,
-    categoria: Categoria.Simples,
-    grupo: Grupo.Pugilato,
-    tracos: [Traco.Agil, Traco.MaoLivre],
-    armaEspecifica: false,
-    descricao: ""
-  },
-  {
-    id: 11,
-    nome: 'Manopla com Cravos',
-    level: 0,
-    raridade: Raridade.COMUM,
-    source: 'Player Core, Pg. 277',
-    preco: 30,
-    dano: Dano['1d4'],
-    tipoDano: TipoDano.Perfurante,
-    volume: 'L',
-    maos: 1,
-    tipo: Tipo.CAC,
-    distancia: Distancia.CAC,
-    categoria: Categoria.Simples,
-    grupo: Grupo.Pugilato,
-    tracos: [Traco.Agil, Traco.MaoLivre],
-    armaEspecifica: false,
-    descricao: ""
-  },
-  {
-    id: 12,
-    nome: 'Adaga de Clã',
-    level: 0,
-    raridade: Raridade.INCOMUM,
-    source: 'Player Core, Pg. 277',
-    preco: 200,
-    dano: Dano['1d4'],
-    tipoDano: TipoDano.Perfurante,
-    volume: 'L',
-    maos: 1,
-    tipo: Tipo.CAC,
-    distancia: Distancia.CAC,
-    categoria: Categoria.Simples,
-    grupo: Grupo.Faca,
-    tracos: [Traco.Agil, Traco.Anao, Traco.VersatilCn],
-    armaEspecifica: false,
-    descricao: ""
-  },
-  {
-    id: 13,
-    nome: 'Katar',
-    level: 0,
-    raridade: Raridade.INCOMUM,
-    source: 'Player Core, Pg. 277',
-    preco: 30,
-    dano: Dano['1d4'],
-    tipoDano: TipoDano.Perfurante,
-    volume: 'L',
-    maos: 1,
-    tipo: Tipo.CAC,
-    distancia: Distancia.CAC,
-    categoria: Categoria.Simples,
-    grupo: Grupo.Faca,
-    tracos: [Traco.Agil, Traco.MortalD6, Traco.Monge],
-    armaEspecifica: false,
-    descricao: ""
-  },
-  {
-    id: 14,
-    nome: 'Azagaia',
-    level: 0,
-    raridade: Raridade.COMUM,
-    source: 'Player Core, Pg. 281',
-    preco: 10,
-    dano: Dano['1d6'],
-    tipoDano: TipoDano.Perfurante,
-    volume: 'L',
-    maos: 1,
-    tipo: Tipo.Ranged,
-    distancia: Distancia['9m'],
-    categoria: Categoria.Simples,
-    grupo: Grupo.Dardo,
-    tracos: [Traco.Arremesso],
-    armaEspecifica: false,
-    descricao: ""
-  },
-  {
-    id: 15,
-    nome: 'Besta Leve',
-    level: 0,
-    raridade: Raridade.COMUM,
-    source: 'Player Core, Pg. 281',
-    preco: 300,
-    dano: Dano['1d8'],
-    tipoDano: TipoDano.Perfurante,
-    volume: '1',
-    maos: 2,
-    tipo: Tipo.Ranged,
-    distancia: Distancia['36m'],
-    categoria: Categoria.Simples,
-    grupo: Grupo.Besta,
-    tracos: [],
-    armaEspecifica: false,
-    descricao: ""
-  },
-  {
-    id: 16,
-    nome: 'Besta de Mão',
-    level: 0,
-    raridade: Raridade.COMUM,
-    source: 'Player Core, Pg. 281',
-    preco: 300,
-    dano: Dano['1d6'],
-    tipoDano: TipoDano.Perfurante,
-    volume: 'L',
-    maos: 1,
-    tipo: Tipo.Ranged,
-    distancia: Distancia['18m'],
-    categoria: Categoria.Simples,
-    grupo: Grupo.Besta,
-    tracos: [],
-    armaEspecifica: false,
-    descricao: ""
-  },
-  {
-    id: 16,
-    nome: 'Besta Pesada',
-    level: 0,
-    raridade: Raridade.COMUM,
-    source: 'Player Core, Pg. 281',
-    preco: 400,
-    dano: Dano['1d10'],
-    tipoDano: TipoDano.Perfurante,
-    volume: '2',
-    maos: 2,
-    tipo: Tipo.Ranged,
-    distancia: Distancia['36m'],
-    categoria: Categoria.Simples,
-    grupo: Grupo.Besta,
-    tracos: [],
-    armaEspecifica: false,
-    descricao: ""
-  },
-  //ARMAS MARCIAIS
-  {
-    id: 4,
-    nome: 'Espada Longa',
-    level: 0,
-    raridade: Raridade.COMUM,
-    source: 'Core Rulebook pg. 281',
-    preco: 100,
-    dano: Dano['1d8'],
-    tipoDano: TipoDano.Cortante,
-    volume: '1',
-    maos: 1,
-    tipo: Tipo.CAC,
-    distancia: Distancia.CAC,
-    categoria: Categoria.Marcial,
-    grupo: Grupo.Espada,
-    tracos: [Traco.VersatilPf],
-    armaEspecifica: false,
-    descricao:
-      'Espadas longas podem ser espadas de um ou dois gumes. Suas lâminas são pesadas e elas possuem de 0,9 a 1,2 metros de comprimento.'
-  },
-  {
-    id: 5,
-    nome: 'Segadeira',
-    level: 0,
-    raridade: Raridade.COMUM,
-    source: 'Core Rulebook pg. 281',
-    preco: 200,
-    dano: Dano['1d10'],
-    tipoDano: TipoDano.Cortante,
-    volume: '2',
-    maos: 2,
-    tipo: Tipo.CAC,
-    distancia: Distancia.CAC,
-    categoria: Categoria.Marcial,
-    grupo: Grupo.Haste,
-    tracos: [Traco.Derrubar, Traco.MortalD10],
-    armaEspecifica: false,
-    descricao:
-      'Derivada de uma ferramenta agrícola usada para ceifar grãos e cereais longos, esta arma possui um cabo comprido de madeira com empunhaduras protuberantes, encimado por uma lâmina curva ajustada em um ângulo reto.'
-  },
-  {
-    id: 6,
-    nome: 'Chicote',
-    level: 0,
-    raridade: Raridade.COMUM,
-    source: 'Core Rulebook pg. 281',
-    preco: 200,
-    dano: Dano['1d4'],
-    tipoDano: TipoDano.Cortante,
-    volume: '1',
-    maos: 1,
-    tipo: Tipo.CAC,
-    distancia: Distancia.CAC,
-    categoria: Categoria.Marcial,
-    grupo: Grupo.Mangual,
-    tracos: [Traco.Desarmar, Traco.Acuidade, Traco.NaoLetal, Traco.Alcance, Traco.Derrubar],
-    armaEspecifica: false,
-    descricao:
-      'Este longo cabo de couro grosso, frequentemente trançado, causa um corte doloroso, mas não-letal, à distância, normalmente acompanhado por um estalo bem distinto'
-  },
-  {
-    id: 7,
-    nome: 'Machado de Guerra Enânico',
-    level: 0,
-    raridade: Raridade.INCOMUM,
-    source: 'Core Rulebook pg. 281',
-    preco: 300,
-    dano: Dano['1d8'],
-    tipoDano: TipoDano.Cortante,
-    volume: '2',
-    maos: 1,
-    tipo: Tipo.CAC,
-    distancia: Distancia.CAC,
-    categoria: Categoria.Avancada,
-    grupo: Grupo.Machado,
-    tracos: [Traco.Amplitude, Traco.Anao, Traco.DuasMaosD12],
-    armaEspecifica: false,
-    descricao:
-      'Esta arma favorecida por anões possui uma grande cabeça ornamentada montada em um cabo grosso. Este poderoso machado pode ser empunhado com uma ou duas mãos.'
-  },
-  {
-    id: 8,
-    nome: 'Maça-Chicote Gnômica',
-    level: 0,
-    raridade: Raridade.INCOMUM,
-    source: 'Core Rulebook pg. 281',
-    preco: 300,
-    dano: Dano['1d8'],
-    tipoDano: TipoDano.Contundente,
-    volume: '2',
-    maos: 1,
-    tipo: Tipo.CAC,
-    distancia: Distancia.CAC,
-    categoria: Categoria.Avancada,
-    grupo: Grupo.Mangual,
-    tracos: [Traco.Alcance, Traco.Gnomo],
-    armaEspecifica: false,
-    descricao:
-      'Mais um mangual do que uma maça, esta arma possui um cabo curto conectado a uma corrente com uma bola em seu fim. A bola é propelida com um movimento do pulso, sendo que o próprio impulso traz a bola de volta para o usuário após o golpe.'
-  },
-  {
-    id: 9,
-    nome: 'Sabre Serrilhado',
-    level: 0,
-    raridade: Raridade.INCOMUM,
-    source: 'Core Rulebook pg. 281',
-    preco: 500,
-    dano: Dano['1d6'],
-    tipoDano: TipoDano.Cortante,
-    volume: 'L',
-    maos: 1,
-    tipo: Tipo.CAC,
-    distancia: Distancia.CAC,
-    categoria: Categoria.Avancada,
-    grupo: Grupo.Espada,
-    tracos: [Traco.Acuidade, Traco.Agil, Traco.Gemea],
-    armaEspecifica: false,
-    descricao:
-      'A marca registrada dos assassinos do Louva-a-Deus Vermelho, esta lâmina curva é semelhante a uma serra — daí seu nome'
-  },
-] as Arma[]
-
-export const armasEspecificas = [
-  {
-    id: 10,
-    nome: 'Vingadora Sagrada',
-    level: 14,
-    raridade: Raridade.INCOMUM,
-    source: 'Core Rulebook pg. 601',
-    preco: 450000,
-    dano: Dano['1d8'],
-    tipoDano: TipoDano.Cortante,
-    volume: '1',
-    maos: 1,
-    tipo: Tipo.CAC,
-    distancia: Distancia.CAC,
-    categoria: Categoria.Marcial,
-    grupo: Grupo.Espada,
-    tracos: [Traco.VersatilPf, Traco.Divino],
-    armaEspecifica: true,
-    descricao:
-      'A reluzente vingadora sagrada é a arma icônica dos paladinos poderosos. A guarda-mão desta espada longa de ferro frio +2 impactante maior sagrada é estilizada para parecer as asas de um anjo. A tradição diz que aqueles que veem seus reflexos na lâmina altamente polida de uma vingadora sagrada têm suas falhas reveladas. Se for maligno, você fica enfraquecido 2 enquanto carregar ou empunhar esta arma.'
+export interface Nethys {
+  took: number
+  timed_out: boolean
+  _shards: Object
+  hits: {
+    total: {
+      value: number
+      relation: string
+    }
+    max_score?: Object
+    hits: {
+      _index: string
+      _id: string
+      _score: Object
+      _source: {
+        bulk: number
+        damage: string
+        damage_die: 3 | 4 | 6 | 8 | 10 | 12
+        id: string
+        hands: '1' | '2'
+        level: number
+        markdown: string
+        name: string
+        price: number
+        range: 10 | 20 | 30 | 60 | 120
+        rarity: 'common' | 'uncommon' | 'rare' | 'unique'
+        source_raw: string[]
+        trait_raw: string[]
+        url: string
+        weapon_category: 'Simple' | 'Martial' | 'Unarmed' | 'Advanced'
+        weapon_group: string
+        weapon_type: 'Melee' | 'Ranged'
+      }
+      sort: [number, string, number]
+    }[]
   }
-] as Arma[]
+  aggregations: {
+    group1: {
+      after_key: {
+        field1: string
+      }
+      buckets: {
+        key: {
+          field1: string
+        }
+        doc_count: number
+      }[]
+    }
+  }
+}
+
+const nethys = JSON.stringify({
+  query: {
+    function_score: {
+      query: {
+        bool: {
+          filter: [
+            {
+              query_string: {
+                query: 'category:weapon',
+                default_operator: 'AND',
+                fields: ['name', 'text^0.1', 'trait_raw', 'type']
+              }
+            }
+          ],
+          must_not: [
+            {
+              terms: {
+                weapon_category: ['ammunition']
+              }
+            },
+            {
+              term: {
+                exclude_from_search: true
+              }
+            }
+          ]
+        }
+      },
+      boost_mode: 'multiply',
+      functions: [
+        {
+          filter: {
+            terms: {
+              type: ['Ancestry', 'Class']
+            }
+          },
+          weight: 1.1
+        },
+        {
+          filter: {
+            terms: {
+              type: ['Trait']
+            }
+          },
+          weight: 1.05
+        }
+      ]
+    }
+  },
+  size: 1000,
+  sort: [
+    {
+      weapon_type: {
+        order: 'asc'
+      }
+    },
+    {
+      weapon_category: {
+        order: 'desc'
+      }
+    },
+    {
+      'name.keyword': {
+        order: 'asc'
+      }
+    },
+    '_doc'
+  ],
+  _source: {
+    excludes: ['text']
+  },
+  aggs: {
+    group1: {
+      composite: {
+        sources: [
+          {
+            field1: {
+              terms: {
+                field: 'type',
+                missing_bucket: true
+              }
+            }
+          }
+        ],
+        size: 10000
+      }
+    }
+  }
+})
+
+const config = {
+  method: 'post',
+  maxBodyLength: Infinity,
+  url: 'https://elasticsearch.aonprd.com/aon/_search?track_total_hits=true',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  data: nethys
+}
+
+const converterRaridade = (raridade: 'common' | 'uncommon' | 'rare' | 'unique'): Raridade => {
+  switch (raridade) {
+    case 'common':
+      return Raridade.COMUM
+    case 'uncommon':
+      return Raridade.INCOMUM
+    case 'rare':
+      return Raridade.RARO
+    case 'unique':
+      return Raridade.UNICO
+  }
+}
+
+const converterDano = (dado: 3 | 4 | 6 | 8 | 10 | 12): Dano => {
+  switch (dado) {
+    case 3:
+      return Dano['1d3']
+    case 4:
+      return Dano['1d4']
+    case 6:
+      return Dano['1d6']
+    case 8:
+      return Dano['1d8']
+    case 10:
+      return Dano['1d10']
+    case 12:
+      return Dano['1d12']
+  }
+}
+
+const converterTipoDano = (dano: string): TipoDano => {
+  switch (dano) {
+    case 'P':
+      return TipoDano.Perfurante
+    case 'C':
+      return TipoDano.Cortante
+    case 'S':
+      return TipoDano.Cortante
+    case 'modular':
+      return TipoDano.Modular
+    default:
+      return TipoDano.Modular
+  }
+}
+
+const converterMaos = (maos: '1' | '2'): 1 | 2 => {
+  switch (maos) {
+    case '1':
+      return 1
+    case '2':
+      return 2
+  }
+}
+
+const converterTipoArma = (tipo: 'Melee' | 'Ranged'): Tipo => {
+  switch (tipo) {
+    case 'Melee':
+      return Tipo.CAC
+    case 'Ranged':
+      return Tipo.Ranged
+  }
+}
+
+const converterDistancia = (tipo: 10 | 20 | 30 | 60 | 120): Distancia => {
+  switch (tipo) {
+    case 10:
+      return Distancia['3m']
+    case 20:
+      return Distancia['6m']
+    case 30:
+      return Distancia['9m']
+    case 60:
+      return Distancia['18m']
+    case 120:
+      return Distancia['36m']
+  }
+}
+
+const converterCategoriaArma = (
+  categoria: 'Simple' | 'Martial' | 'Unarmed' | 'Advanced'
+): Categoria => {
+  switch (categoria) {
+    case 'Simple':
+      return Categoria.Simples
+    case 'Martial':
+      return Categoria.Marcial
+    case 'Unarmed':
+      return Categoria.Desarmado
+    case 'Advanced':
+      return Categoria.Avancada
+  }
+}
+
+const converterGrupoArma = (grupo: string): Grupo => {
+  switch (grupo) {
+    default:
+      return Grupo.Arco
+  }
+}
+
+const converterTracos = (tracos: string[], el?: Object): Traco[] => {
+  const traco = (traco: string): Traco => {
+    switch (traco) {
+      case 'Agile':
+        return Traco.Agil
+      case 'Finesse':
+        return Traco.Acuidade
+      case 'Nonlethal':
+        return Traco.NaoLetal
+      case 'Unarmed':
+        return Traco.Desarmado
+      case 'Shove':
+        return Traco.Empurrar
+      case 'Two-Hand d6':
+        return Traco.DuasMaosD6
+      case 'Two-Hand 1d6':
+        return Traco.DuasMaosD6
+      case 'Two-Hand 1d8':
+        return Traco.DuasMaosD8
+      case 'Two-Hand d10':
+        return Traco.DuasMaosD10
+      case 'Two-Hand 1d10':
+        return Traco.DuasMaosD10
+      case 'Two-Hand 1d12':
+        return Traco.DuasMaosD12
+      case 'Two-Hand d12':
+        return Traco.DuasMaosD12
+      case 'Uncommon':
+        return Traco.Incomum
+      case 'Dwarf':
+        return Traco.Anao
+      case 'Parry':
+        return Traco.Aparar
+      case 'Versatile B':
+        return Traco.VersatilCn
+      case 'Versatile S':
+        return Traco.VersatilCt
+      case 'Versatile P':
+        return Traco.VersatilPf
+      case 'Thrown':
+        return Traco.Arremesso
+      case 'Thrown  10 ft.':
+        return Traco.Arremesso3m
+      case 'thrown 10 ft.':
+        return Traco.Arremesso3m
+      case 'Thrown 10 ft.':
+        return Traco.Arremesso3m
+      case 'Thrown 20 ft.':
+        return Traco.Arremesso6m
+      case 'Thrown 20 feet':
+        return Traco.Arremesso6m
+      case 'Thrown 30 ft.':
+        return Traco.Arremesso12m
+      case 'Thrown 40 ft.':
+        return Traco.Arremesso12m
+      case 'Concealable':
+        return Traco.Ocultavel
+      case 'Deadly d6':
+        return Traco.MortalD6
+      case 'Deadly d8':
+        return Traco.MortalD8
+      case 'Deadly  d8':
+        return Traco.MortalD8
+      case 'Deadly d10':
+        return Traco.MortalD10
+      case 'Deadly d12':
+        return Traco.MortalD12
+      case 'Fatal d6':
+        return Traco.FatalD6
+      case 'Fatal d8':
+        return Traco.FatalD8
+      case 'Fatal 1d8':
+        return Traco.FatalD8
+      case 'Fatal d10':
+        return Traco.FatalD10
+      case 'Fatal 1d10':
+        return Traco.FatalD10
+      case 'Fatal d12':
+        return Traco.FatalD12
+      case 'Fatal 1d12':
+        return Traco.FatalD12
+      case 'Halfling':
+        return Traco.Halfling
+      case 'Free-Hand':
+        return Traco.MaoLivre
+      case 'Monk':
+        return Traco.Monge
+      case 'Reach':
+        return Traco.Alcance
+      case 'Backswing':
+        return Traco.Oscilante
+      case 'Trip':
+        return Traco.Derrubar
+      case 'Disarm':
+        return Traco.Desarmar
+      case 'Volley 20 ft.':
+        return Traco.Voleio6m
+      case 'Volley 30 ft.':
+        return Traco.Voleio9m
+      case 'Volley 50 ft.':
+        return Traco.Voleio15m
+      case 'Goblin':
+        return Traco.Goblin
+      case 'Hobgoblin':
+        return Traco.Hobgoblin
+      case 'Orc':
+        return Traco.Orc
+      case 'Elf':
+        return Traco.Elfo
+      case 'Fatal Aim d10':
+        return Traco.MiraFatald10
+      case 'Fatal Aim d12':
+        return Traco.MiraFatald12
+      case 'Twin':
+        return Traco.Gemea
+      case 'Sweep':
+        return Traco.Amplitude
+      case 'Grapple':
+        return Traco.Agarrar
+      case 'Backstabber':
+        return Traco.Apunhaladora
+      case 'Ranged Trip':
+        return Traco.DerrubarADistancia
+      case 'Attached':
+        return Traco.Anexada
+      case 'Forceful':
+        return Traco.Energica
+      case 'Gnome':
+        return Traco.Gnomo
+      case 'Kobold':
+        return Traco.Kobold
+      case 'Azarketi':
+        return Traco.Azarketi
+      case 'Grippli':
+        return Traco.Grippli
+      case 'Jousting 1d6':
+        return Traco.JustaD6
+      case 'Jousting d6':
+        return Traco.JustaD6
+      case 'Conrasu':
+        return Traco.Conrasu
+      case 'Catfolk':
+        return Traco.PovoGato
+      case 'Ratfolk':
+        return Traco.PovoRato
+      case 'Tengu':
+        return Traco.Tengu
+      case 'Rare':
+        return Traco.Raro
+      case 'Propulsive':
+        return Traco.Propulsiva
+      case 'Attached to crossbow or firearm':
+        return Traco.AnexadaBestaArmaFogo
+      case 'Modular B, P, or S':
+        return Traco.ModularPBS
+      case 'Modular (B, P, or S)':
+        return Traco.ModularPBS
+      case 'Modular (P and grapple, or S and sweep)':
+        return Traco.ModularPAgarrarSAmplitude
+      case 'Critical Fusion':
+        return Traco.UniaoCritica
+      case 'Combination':
+        return Traco.Juncao
+      case 'Vehicular':
+        return Traco.Veicular
+      case 'Razing':
+        return Traco.Demolidora
+      case 'Climbing':
+        return Traco.Escalar
+      case 'Tethered':
+        return Traco.Preso
+      case 'Training':
+        return Traco.Treinamento
+      case 'Twin (Sheath)':
+        return Traco.GemeaBainha
+      case 'Twin (Sword)':
+        return Traco.GemeaEspada
+      case 'Injection':
+        return Traco.Injecao
+      case 'Brace':
+        return Traco.Falange
+      case 'Attached to Shield':
+        return Traco.AnexadaEscudo
+      case 'Attached to shield':
+        return Traco.AnexadaEscudo
+      case 'Ghoran':
+        return Traco.Ghoran
+      case 'Geniekin':
+        return Traco.Geniano
+      case 'Resonant':
+        return Traco.Ressonante
+      case 'Clockwork':
+        return Traco.Clockwork
+      case 'Hampering':
+        return Traco.Dificultadora
+      case 'Reload 1':
+        return Traco.Recarga1
+      case 'Vanara':
+        return Traco.Vanara
+      case 'Vishkanya':
+        return Traco.Vishkanya
+      case 'Alchemical':
+        return Traco.Alquimico
+      case 'Concussive':
+        return Traco.Concussivo
+      case 'Repeating':
+        return Traco.Repeticao
+      case 'Kickback':
+        return Traco.Recuo
+      case 'Cobbled':
+        return Traco.Remendado
+      case 'Scatter 10 ft.':
+        return Traco.Disperso3m
+      case 'Scatter 5 ft.':
+        return Traco.Disperso1MetroMeio
+      case 'Recovery':
+        return Traco.Retornante
+      case 'Capacity 2':
+        return Traco.Capacidade2
+      case 'Capacity 3':
+        return Traco.Capacidade3
+      case 'Capacity 4':
+        return Traco.Capacidade4
+      case 'Capacity 5':
+        return Traco.Capacidade5
+      case 'Double Barrel':
+        return Traco.CanoDuplo
+      case 'Volley':
+        return Traco.Voleio9m
+      case 'Varies':
+        return Traco.Variado
+      default:
+        console.log(traco)
+        console.log(el)
+        return Traco.Null
+    }
+  }
+  return tracos?.map((el) => traco(el)) ?? []
+}
+
+const pullNethys = async (): Promise<Arma[]> => {
+  const armasNethys: Nethys = (await axios.request(config)).data
+  const armas: Arma[] = armasNethys.hits.hits.map((el) => {
+    return {
+      id: el._source.id,
+      nome: el._source.name,
+      level: el._source.level,
+      raridade: converterRaridade(el._source.rarity),
+      source: el._source.source_raw[0],
+      preco: el._source.price,
+      dano: converterDano(el._source.damage_die),
+      tipoDano: converterTipoDano(el._source.damage.slice(4)),
+      volume: '' + el._source.bulk,
+      maos: converterMaos(el._source.hands),
+      tipo: converterTipoArma(el._source.weapon_type),
+      distancia: converterDistancia(el._source.range),
+      categoria: converterCategoriaArma(el._source.weapon_category),
+      grupo: converterGrupoArma(el._source.weapon_group),
+      tracos: converterTracos(el._source.trait_raw, el),
+      armaEspecifica: false,
+      descricao: ''
+    } as Arma
+  })
+  console.log(armas)
+  return armas
+}
+
+export const armasBase = await pullNethys()

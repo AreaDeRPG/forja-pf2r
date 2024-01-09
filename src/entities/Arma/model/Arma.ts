@@ -8,7 +8,7 @@ import type { TipoDano } from './TipoDano'
 import type { Traco } from './Traco'
 
 export default interface Arma {
-  id: number
+  id: string
   nome: string
   level: number
   raridade: Raridade
