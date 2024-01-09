@@ -145,7 +145,7 @@
 import { armasBase } from '@/entities/Arma'
 import type Arma from '@/entities/Arma/model/Arma'
 import { TipoDano } from '@/entities/Arma/model/TipoDano'
-import { Traco, TracoDescricao, getDescricaoTraco } from '@/entities/Arma/model/Traco'
+import { Traco, getDescricaoTraco } from '@/entities/Arma/model/Traco'
 import { RunaImpactante } from '@/entities/Utils/RunaImpactante'
 import { RunaPotencia } from '@/entities/Utils/RunaPotencia'
 import Axe from '@/icons/Axe.vue'
@@ -161,6 +161,8 @@ import { ref } from 'vue'
 import { Proficiencia } from '@/entities/Utils/Proficiencia'
 import { Raridade } from '@/entities/Utils/Raridade'
 import { Tipo } from '@/entities/Arma/model/Tipo'
+
+const armas = await armasBase;
 const props = defineProps<{
   armaId: string
   runaPotencia: RunaPotencia
@@ -195,7 +197,7 @@ const checkData = (): void => {
 }
 
 const getArma = (): Arma | undefined => {
-  return armasBase.find((el) => el.id == props.armaId)
+  return armas.find((el) => el.id == props.armaId)
 }
 
 const getMaterial = (): Material | undefined => {

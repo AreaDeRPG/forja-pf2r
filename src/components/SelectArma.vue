@@ -105,16 +105,16 @@ defineProps<{
 import { armasBase } from '@/entities/Arma'
 import type Arma from '@/entities/Arma/model/Arma';
 import { Categoria } from '@/entities/Arma/model/Categoria'
-
+const armas = await armasBase
 const getArmasSimples = () => {
-  return armasBase.filter((el) => el.categoria == Categoria.Simples).sort((a, b) => a.nome.localeCompare(b.nome))
+  return armas.filter((el) => el.categoria == Categoria.Simples).sort((a, b) => a.nome.localeCompare(b.nome))
 }
 const getArmasMarciais = () => {
-  return armasBase.filter((el) => el.categoria == Categoria.Marcial)
+  return armas.filter((el) => el.categoria == Categoria.Marcial).sort((a, b) => a.nome.localeCompare(b.nome))
 }
 
 const getArmasAvancadas = () => {
-  return armasBase.filter((el) => el.categoria == Categoria.Avancada)
+  return armas.filter((el) => el.categoria == Categoria.Avancada).sort((a, b) => a.nome.localeCompare(b.nome))
 }
 
 const getMoeda = (moedas: number): string => {

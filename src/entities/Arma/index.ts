@@ -489,8 +489,6 @@ const converterTracos = (tracos: string[], el?: Object): Traco[] => {
         return Traco.CanoDuplo
       case 'Volley':
         return Traco.Voleio9m
-      case 'Varies':
-        return Traco.Variado
       default:
         console.log(traco)
         console.log(el)
@@ -527,4 +525,4 @@ const pullNethys = async (): Promise<Arma[]> => {
   return armas
 }
 
-export const armasBase = await pullNethys()
+export const armasBase = pullNethys()
