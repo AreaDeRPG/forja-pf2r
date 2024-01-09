@@ -155,7 +155,8 @@ const config = {
   maxBodyLength: Infinity,
   url: 'https://elasticsearch.aonprd.com/aon/_search?track_total_hits=true',
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': "*"
   },
   data: nethys
 }
