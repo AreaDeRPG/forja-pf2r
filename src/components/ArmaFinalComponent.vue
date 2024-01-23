@@ -1,7 +1,9 @@
 <template>
   <div class="col-sm-7 col-md-7 col-lg-3">
     <ul class="final">
-      <li class="nomearma">{{ getNomeArma() }}</li>
+      <li class="nomearma">
+        <span v-html="getNomeArma()"> </span>
+      </li>
       <li class="grupoarma">{{ getGrupoArma() }}</li>
       <li class="descricaoarma">{{ getDescricaoArma() }}</li>
       <li class="descricaoarma2" v-for="(traco, index) in getArma()?.tracos" :key="index">

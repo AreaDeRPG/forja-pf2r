@@ -26,14 +26,14 @@
       </li>
       <li class="elementoarma" v-for="arma in getArmasSimples" :key="arma.id">
         <input
-          :id="arma.nome"
+          :id="arma.id"
           type="radio"
           name="weapon"
           :value="arma.id"
           @click="setArmaId(arma.id)"
         />
-        <label :for="arma.nome">
-          <span class="nome">{{ arma.nome }}</span>
+        <label :for="arma.id">
+          <span class="nome">{{ getNome(arma.nome) }}</span>
           <span class="dano text-center">{{ arma.dano }} {{ arma.tipoDano }}</span>
           <span class="distancia text-center">{{ arma.distancia }}</span>
           <span class="precoArma text-center">{{ getMoeda(arma.preco) }}</span>
@@ -44,14 +44,14 @@
       </li>
       <li class="elementoarma" v-for="arma in getArmasMarciais" :key="arma.id">
         <input
-          :id="arma.nome"
+          :id="arma.id"
           type="radio"
           name="weapon"
           :value="arma.id"
           @click="setArmaId(arma.id)"
         />
-        <label :for="arma.nome">
-          <span class="nome">{{ arma.nome }}</span>
+        <label :for="arma.id">
+          <span class="nome">{{ getNome(arma.nome) }}</span>
           <span class="dano text-center">{{ arma.dano }} {{ arma.tipoDano }}</span>
           <span class="distancia text-center">{{ arma.distancia }}</span>
           <span class="precoArma text-center">{{ getMoeda(arma.preco) }}</span>
@@ -62,14 +62,14 @@
       </li>
       <li class="elementoarma" v-for="arma in getArmasAvancadas" :key="arma.id">
         <input
-          :id="arma.nome"
+          :id="arma.id"
           type="radio"
           name="weapon"
           :value="arma.id"
           @click="setArmaId(arma.id)"
         />
-        <label :for="arma.nome">
-          <span class="nome">{{ arma.nome }}</span>
+        <label :for="arma.id">
+          <span class="nome">{{ getNome(arma.nome) }}</span>
           <span class="dano text-center">{{ arma.dano }} {{ arma.tipoDano }}</span>
           <span class="distancia text-center">{{ arma.distancia }}</span>
           <span class="precoArma text-center">{{ getMoeda(arma.preco) }}</span>
@@ -108,6 +108,7 @@ import { computed } from 'vue'
 
 const armas = await armasBase
 const getArmasSimples = computed(() => {
+  return []
   return armas
     .filter((el) => el.categoria == Categoria.Simples)
     .sort((a, b) => a.nome.localeCompare(b.nome))
@@ -132,6 +133,12 @@ const getMoeda = (moedas: number): string => {
   const moedas_ =
     (po == 0 ? '' : po + ' PO ') + (pp == 0 ? '' : pp + ' PP ') + (pc == 0 ? '' : pc + ' PC')
   return moedas_ == '' ? '-' : moedas_
+}
+
+const getNome = (nome: string): string => {
+  //console.log(nome.split('>')[1].split('<')[0]);
+  if (!nome.split('>')[1]) return nome.split('>')[1]
+  return nome.split('>')[1].split('<')[0]
 }
 </script>
 

@@ -498,12 +498,354 @@ const converterTracos = (tracos: string[], el?: Object): Traco[] => {
   return tracos?.map((el) => traco(el)) ?? []
 }
 
+const nethysUrl = 'https://2e.aonprd.com'
+
+const converterNomeArma = (nome: string): string => {
+  switch (nome) {
+    /*
+      ### ARMA SIMPLES
+    */
+    case 'Clan Dagger':
+      return `Adaga de Clã`
+    case 'Club':
+      return `Clava`
+    case 'Dagger':
+      return `Adaga`
+    case 'Hand Crossbow':
+      return `Besta de Mão`
+    case 'Heavy Crossbow':
+      return `Besta Pesada`
+    case 'Dart':
+      return `Dardo`
+    case 'Javelin':
+      return `Azagaia`
+    case 'Light Mace':
+      return `Maça Leve`
+    case 'Longspear':
+      return `Lança Longa`
+    case 'Mace':
+      return `Maça`
+    case 'Spear':
+      return `Lança`
+    case 'Staff':
+      return `Cajado`
+    case 'Gauntlet':
+      return `Manopla`
+    case 'Spiked Gauntlet':
+      return `Manopla com Cravos`
+    case 'Morningstar':
+      return `Maça-Estrela`
+    case 'Sickle':
+      return `Foice`
+    case 'Fist':
+      return `Punho`
+    case 'Crossbow':
+      return `Besta Leve`
+    case 'Blowgun':
+      return `Zarabatana`
+    case 'Sling':
+      return `Funda`
+    case 'Air Repeater':
+      return `Repetidor de Ar*`
+    case 'Long Air Repeater':
+      return `Repetidor de Ar Longo*`
+    case 'Alchemical Crossbow':
+      return `Besta Alquímica`
+    case 'Atlatl':
+      return `Propulsor*`
+    case 'Battle Lute':
+      return `Alaúde de Batalha*`
+    case 'Coat Pistol':
+      return `Pistola de Bolso*`
+    case 'Corset Knife':
+      return `Faca Espartilho*`
+    case 'Fire Lance':
+      return `Lança de Fogo*`
+    case 'Flintlock Musket':
+      return `Mosquete de Pederneira*`
+    case 'Flintlock Pistol':
+      return `Pistola de Pederneira*`
+    case 'Forked Bipod':
+      return `Bipé bifurcado*`
+    case 'Frying Pan':
+      return `Frigideira*`
+    case 'Hand Cannon':
+      return `Canhão de Mão*`
+    case 'Juggling Club':
+      return `Clava de Malabarista*`
+    case 'Knuckle Duster':
+      return `Espanador de Dedos*`
+    case 'Nightstick':
+      return `Cassetete*`
+    case 'Reinforced Frame':
+      return `Roda Reforçada*`
+    case 'Shears':
+      return `Tesouras`
+    case 'Throwing Knife':
+      return `Faca de Arremesso*`
+    case 'Shield Pistol':
+      return `Pistola-Escudo*`
+    case 'Stiletto Pen':
+      return `Caneta Estilete`
+    case 'Thundermace':
+      return `Maça-Trovão*`
+    case 'Tri-Bladed Katar':
+      return `Katar com Três Lâminas*`
+    case 'Wheel Blades':
+      return `Roda com Lâminas*`
+    case 'Wheel Spikes':
+      return `Roda com Cravos*`
+    /*
+      ### ARMA MARCIAIS
+    */
+    case 'Adze':
+      return `Enxó`
+    case 'Arquebus':
+      return `Arquebus*`
+    case 'Asp Coil':
+      return `Serpente Enroscada*`
+    case 'Axe Musket':
+      return `Machado-Mosquete*`
+    case 'Backpack Ballista':
+      return `Balestra de Mochila*`
+    case 'Bastard Sword':
+      return `Espada Bastarda`
+    case 'Battle Axe':
+      return `Machado de Batalha`
+    case 'Battle Saddle':
+      return `Sela de Batalha*`
+    case 'Bayonet':
+      return `Baioneta*`
+    case 'Bec de Corbin':
+      return `Bico de Corvo*`
+    case 'Black Powder Knuckle Dusters':
+      return `Soqueira com Pólvora*`
+    case 'Bladed Gauntlet':
+      return `Manopla com Lâmina*`
+    case 'Bladed Scarf':
+      return `Cachecol Laminado*`
+    case 'Bo Staff':
+      return `Bô`
+    case 'Boarding Pike':
+      return `Pique de Embarque`
+    case 'Bow Staff':
+      return `Cajado-Arco*`
+    case 'Breaching Pike':
+      return `Pique de Arrombamento`
+    case 'Buugeng':
+      return `Buugeng`
+    case 'Boarding Axe':
+      return `Machado de Embarque*`
+    case 'Cane Pistol':
+      return `Bengala de Cano Curto*`
+    case 'Claw Blade':
+      return `Lâmina de Garra*`
+    case 'Combat Grapnel':
+      return `Gancho de Combate*`
+    case 'Combat Lure':
+      return `Isca de Combate*`
+    case 'Crescent Cross':
+      return `Cruz Crescente*`
+    case 'Dagger Pistol':
+      return `Pistola-Adaga*`
+    case `Dancer's Spear`:
+      return `Pique de Dança*`
+    case 'Dandpatta':
+      return `Dandpatta*`
+    case 'Dogslicer':
+      return `Cortacão`
+    case 'Dueling Spear':
+      return `Pique de Duelo*`
+    case 'Earthbreaker':
+      return `Destruidor de Terra*`
+    case 'Elven Branched Spear':
+      return `Pique Élfico Ramificado*`
+    case 'Elven Curve Blade':
+      return `Lâmina Curva Élfica`
+    case 'Exquisite Sword Cane':
+      return `Bengala de Espada Elegante*`
+    case 'Exquisite Sword Cane Sheath':
+      return `Bainha de Bengala de Espada Elegante*`
+    case 'Falchion':
+      return `Bracamante`
+    case 'Fangwire':
+      return `Fio de Presas*`
+    case 'Fauchard':
+      return `Foucinho`
+    case 'Fighting Fan':
+      return `Leque de Combate*`
+    case 'Fighting Stick':
+      return `Bastão de Luta*`
+    case "Filcher's Fork":
+      return `Garfo do Ladrão*`
+    case 'Flail':
+      return `Mangual`
+    case 'Flyssa':
+      return `Flyssa`
+    case 'Gaff':
+      return `Garateia*`
+    case 'Gill Hook':
+      return `Gancho para Guelras*`
+    case 'Glaive':
+      return `Glaive`
+    case 'Gnome Amalgam Musket':
+      return `Espingarda Amálgama Gnômica*`
+    case 'Gnome Hooked Hammer':
+      return `Martelo com Gancho Gnômico`
+    case 'Greataxe':
+      return `Machado Longo`
+    case 'Greatclub':
+      return `Clava Pesada`
+    case 'Greatpick':
+      return `Picareta Pesada`
+    case 'Greatsword':
+      return `Montante`
+    case 'Griffon Cane':
+      return `Bengala-Grifo*`
+    case 'Guisarme':
+      return `Bisarma`
+    case 'Gun Sword':
+      return `Espada com Cano*`
+    case 'Halberd':
+      return `Alabarda`
+    case 'Hammer Gun':
+      return `Martelo com Cano*`
+    case 'Hand Adze':
+      return `Enxó de mão`
+    case 'Hatchet':
+      return `Machadinha`
+    case 'Horsechopper':
+      return `Fatia-cavalo`
+    case 'Injection Spear':
+      return `Pique Injetora*`
+    case 'Jiu Huan Dao':
+      return `Espada de Nove Anéis`
+    case 'Kama':
+      return `Kama`
+    case 'Katana':
+      return `Katana`
+    case 'Khakkara':
+      return `Khakkara`
+    case 'Khopesh':
+      return `Khopesh`
+    case 'Kris':
+      return `Kris`
+    case 'Kukri':
+      return `Kukri`
+    case 'Kusarigama':
+      return `Kusarigama`
+    case 'Lance':
+      return `Lança de Cavalaria`
+    case 'Lancer':
+      return `Lança-Besta`
+    case 'Leiomano':
+      return `Leiomano`
+    case 'Light Hammer':
+      return `Martelo Leve`
+    case 'Light Pick':
+      return `Picareta Leve`
+    case 'Katar':
+      return `Katar`
+    case 'Poi':
+      return `Balangandãs`
+    case 'Lion Scythe':
+      return `Foice de Leão*`
+    case 'Long Hammer':
+      return `Martelo Longo*`
+    case 'Longsword':
+      return `Espada Longa`
+    case 'Mace Multipistol':
+      return `Maça Multipistola*`
+    case 'Machete':
+      return `Machete`
+    case 'Main-gauche':
+      return `Adaga de aparar`
+    case 'Mambele':
+      return `Mambele`
+    case 'Maul':
+      return `Malho `
+    case 'Meteor Hammer':
+      return `Martelo Meteoro`
+    case 'Mikazuki':
+      return `Mikazuki`
+    case "Monkey's Fist":
+      return `Funda de Corda`
+    case 'Naginata':
+      return `Naginata`
+    case 'Nunchaku':
+      return `Nunchaku`
+    case 'Ogre Hook':
+      return `Gancho Ogro`
+    case 'Orc Knuckle Dagger':
+      return `Adaga de Soco Órquica`
+    case 'Panabas':
+      return `Panabas`
+    case 'Pick':
+      return `Picareta`
+    case 'Piercing Wind':
+      return `Vento Perfurante*`
+    case 'Piranha Kiss':
+      return `Beijo de Piranha8`
+    case 'Polytool':
+      return `Poliferramenta`
+    case 'Probing Cane':
+      return `Bengala de Prospecção`
+    case '':
+      return ``
+    case '':
+      return ``
+    case '':
+      return ``
+    case '':
+      return ``
+    case '':
+      return ``
+    case '':
+      return ``
+    case '':
+      return ``
+    case '':
+      return ``
+    case '':
+      return ``
+    case '':
+      return ``
+    case '':
+      return ``
+    case '':
+      return ``
+    case '':
+      return ``
+    case '':
+      return ``
+    case '':
+      return ``
+    case '':
+      return ``
+    case '':
+      return ``
+    case '':
+      return ``
+    case '':
+      return ``
+    case '':
+      return ``
+
+    default:
+      console.log('+' + nome)
+      return '+' + nome
+  }
+}
+
 const pullNethys = async (): Promise<Arma[]> => {
   const armasNethys: Nethys = (await axios.request(config)).data
+  console.log(armasNethys)
   const armas: Arma[] = armasNethys.hits.hits.map((el) => {
     return {
-      id: el._source.id,
-      nome: el._source.name,
+      id: el._id,
+      nome: `<a href='${nethysUrl}${el._source.url}' class='link-light'>${converterNomeArma(
+        el._source.name
+      )}</a>`,
       level: el._source.level,
       raridade: converterRaridade(el._source.rarity),
       source: el._source.source_raw[0],
